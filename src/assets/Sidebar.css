@@ -1,0 +1,27 @@
+
+.sidebar {
+  min-height: 100vh;
+}
+
+/* Base link styling */
+.nav-link.hover-custom {
+
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+/* Hover styling */
+.nav-link.hover-custom:hover {
+  color: #d6ff63 !important;
+}
+
+ul.nav li.nav-item .nav-link.active-custom {
+  color: #d6ff63 !important;
+}
+
+
+
+
+
+

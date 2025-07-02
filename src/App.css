@@ -1,0 +1,34 @@
+@media (max-width: 576px) {
+  .calendar-table th,
+  .calendar-table td {
+    font-size: 0.7rem !important;
+    padding: 0.1rem !important;
+  }
+
+  .calendar-table .date-circle {
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 0.7rem !important;
+  }
+
+  .progress {
+    height: 10px !important;
+  }
+
+  .card img {
+    width: 80px !important;
+    height: 80px !important;
+  }
+}
+
+.progress-bar {
+  font-weight: bold;
+}
+
+.card {
+  border-radius: 12px;
+}
+
+ul {
+  padding-left: 20px;
+}
