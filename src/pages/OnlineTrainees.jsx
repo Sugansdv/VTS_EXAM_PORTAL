@@ -27,11 +27,11 @@ const OnlineTrainees = () => {
     },
     {
       id: 3,
-      name: "Vishwa",
+      name: "Ram",
       duration: "30 Days",
       course: "UI/UX Design",
       mode: "Online",
-      email: "vishwa.uiux@vts.in",
+      email: "ram.uiux@vts.in",
       phone: "9123456780",
       image: profileImg,
     },
