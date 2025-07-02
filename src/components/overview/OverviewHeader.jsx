@@ -7,7 +7,6 @@ import traineesIcon from "../../assets/images/Total Trainees.png";
 import coursesIcon from "../../assets/images/courses.png";
 import examsIcon from "../../assets/images/Exams.png";
 
-// Get today’s date
 const today = new Date();
 const formattedDate = today.toLocaleDateString("en-US", {
   weekday: "long",
@@ -27,15 +26,12 @@ const OverviewHeader = () => {
 
   return (
     <div className="container py-4">
-      {/* Header Row */}
       <div className="row align-items-center mb-4">
-        {/* Greeting */}
         <div className="col-md-4 text-md-start text-center mb-2 mb-md-0">
           <h4 className="fw-bold">Good Morning!!!</h4>
           <p className="text-muted mb-0">It's {formattedDate}</p>
         </div>
 
-        {/* Search */}
         <div className="col-md-4 d-flex justify-content-center mb-2 mb-md-0">
           <div className="input-group" style={{ maxWidth: "300px", width: "100%" }}>
             <input type="text" className="form-control" placeholder="Search" />

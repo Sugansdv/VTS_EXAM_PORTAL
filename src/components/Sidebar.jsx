@@ -4,7 +4,7 @@ import logo from "../assets/images/logo.jpg";
 import {
   FaPalette,
   FaPencilRuler,
-  FaDesktop,
+  FaCode,
   FaClipboard,
   FaSearch,
 } from "react-icons/fa";
@@ -65,7 +65,7 @@ const Sidebar = () => {
               `nav-link hover-custom ${isActive ? "active-custom" : ""}`
             }
           >
-            <FaDesktop className="me-2" /> Development
+            <FaCode className="me-2" /> Development
           </NavLink>
         </li>
         <li className="nav-item mb-2">

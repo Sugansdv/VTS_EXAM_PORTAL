@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { FaSearch, FaFilter, FaPlus } from "react-icons/fa";
 import { Modal, Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
 import OverviewRow2 from "../components/overview/Overviewrow2";
 import OverviewRow3 from "../components/overview/OverviewRow3";
 
 const Toolbar = () => {
   const [show, setShow] = useState(false);
-  const [classMode, setClassMode] = useState(""); // track selected mode
+  const [classMode, setClassMode] = useState(""); 
   const navigate = useNavigate();
 
   const handleShow = () => setShow(true);
@@ -23,15 +22,13 @@ const Toolbar = () => {
       navigate("/offline");
     }
 
-    handleClose(); // close modal after navigation
+    handleClose();
   };
 
   return (
     <>
-      {/* Toolbar */}
       <div className="d-flex justify-content-center mt-4">
         <div className="d-flex align-items-center gap-3">
-          {/* Search Group */}
           <div className="input-group" style={{ maxWidth: "220px" }}>
             <input
               type="text"
