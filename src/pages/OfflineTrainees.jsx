@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import TraineeCard from '../components/TraineeCard';
 import profileImg from '../assets/images/Img 5.png';
 import { Link } from 'react-router-dom';
 
 const OfflineTrainees = () => {
-  const trainees = [
+  const staticTrainees = [
     {
       id: 1,
       name: "Ramesh",
@@ -67,6 +67,13 @@ const OfflineTrainees = () => {
     },
   ];
 
+  const [trainees, setTrainees] = useState([]);
+
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem("offlineTrainees")) || [];
+    setTrainees([...staticTrainees, ...stored]);
+  }, []);
+
   return (
     <div className="d-flex">
       <div className="container-fluid">
@@ -83,8 +90,8 @@ const OfflineTrainees = () => {
 
         <div className="container mt-4">
           <div className="row gx-2 gy-3">
-            {trainees.map((trainee) => (
-              <div className="col-md-4 d-flex justify-content-center" key={trainee.id}>
+            {trainees.map((trainee, index) => (
+              <div className="col-md-4 d-flex justify-content-center" key={index}>
                 <TraineeCard {...trainee} />
               </div>
             ))}

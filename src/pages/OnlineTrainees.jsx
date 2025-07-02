@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import TraineeCard from '../components/TraineeCard';
 import profileImg from '../assets/images/Img 5.png';
 import { Link } from 'react-router-dom';
 
 const OnlineTrainees = () => {
-  const trainees = [
+  const staticTrainees = [
     {
       id: 1,
       name: "Kavya",
@@ -66,6 +66,13 @@ const OnlineTrainees = () => {
       image: profileImg,
     },
   ];
+
+  const [trainees, setTrainees] = useState([]);
+
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem("onlineTrainees")) || [];
+    setTrainees([...staticTrainees, ...stored]);
+  }, []);
 
   return (
     <div className="d-flex">

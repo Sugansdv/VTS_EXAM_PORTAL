@@ -4,8 +4,10 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import OverviewRow2 from "../components/overview/Overviewrow2";
 import OverviewRow3 from "../components/overview/OverviewRow3";
+import AddTraineeModal from "../components/AddTraineeModal";
 
 const Toolbar = () => {
+  const [showAddModal, setShowAddModal] = useState(false);
   const [show, setShow] = useState(false);
   const [classMode, setClassMode] = useState(""); 
   const navigate = useNavigate();
@@ -59,12 +61,14 @@ const Toolbar = () => {
 
           {/* Add Trainees Button */}
           <button
-            className="btn d-flex align-items-center gap-2 text-white"
-            style={{ backgroundColor: "#161527" }}
-          >
-            <FaPlus size={14} />
-            <span>Add Trainees</span>
-          </button>
+  className="btn d-flex align-items-center gap-2 text-white"
+  style={{ backgroundColor: "#161527" }}
+  onClick={() => setShowAddModal(true)}
+>
+  <FaPlus size={14} />
+  <span>Add Trainees</span>
+</button>
+
         </div>
       </div>
 
@@ -139,6 +143,7 @@ const Toolbar = () => {
           <hr className="mt-4" />
         </Modal.Body>
       </Modal>
+      <AddTraineeModal show={showAddModal} handleClose={() => setShowAddModal(false)} />
     </>
   );
 };

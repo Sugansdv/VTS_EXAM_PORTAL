@@ -27,7 +27,6 @@ import UploadQuestionPaper from "./pages/UploadQuestionsPaper";
 import Development from "./pages/Development";
 
 
-// This wrapper allows useLocation to work inside AppLayout
 const AppLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -38,7 +37,6 @@ const AppLayout = () => {
   );
 
   useEffect(() => {
-    // Redirect to login if not logged in and not already on login page
     if (!isLoggedIn && location.pathname !== "/") {
       navigate("/");
     }
@@ -52,14 +50,12 @@ const AppLayout = () => {
   return (
     <div className="container-fluid">
       <div className="row">
-        {/* Sidebar (large screens) */}
         {!isLoginPage && (
           <nav className="col-lg-2 d-none d-lg-block bg-dark sidebar p-0">
             <Sidebar />
           </nav>
         )}
 
-        {/* Mobile top bar + Mobile sidebar */}
         {!isLoginPage && (
           <>
             <div className="d-lg-none bg-dark p-2 text-white d-flex justify-content-between align-items-center">

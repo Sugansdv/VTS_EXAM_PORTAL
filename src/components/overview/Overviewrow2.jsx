@@ -5,7 +5,8 @@ import reshmaImg from "../../assets/images/Img 3.png";
 import { useNavigate } from "react-router-dom";
 
 const OverviewRow2 = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+
   const staticTrainers = [
     { name: "Priya", role: "UI/UX Designer", trainees: 15, img: priyaImg },
     { name: "Rithika", role: "UI/UX Designer", trainees: 15, img: rithikaImg },
@@ -20,6 +21,8 @@ const OverviewRow2 = () => {
   const [dynamicTrainers, setDynamicTrainers] = useState([]);
   const [dynamicExams, setDynamicExams] = useState([]);
   const [showAllTrainers, setShowAllTrainers] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [formData, setFormData] = useState({ name: "", role: "", img: "", trainees: "" });
 
   useEffect(() => {
     const storedTrainers = JSON.parse(localStorage.getItem("dynamicTrainers")) || [];
@@ -36,17 +39,16 @@ const OverviewRow2 = () => {
     localStorage.setItem("dynamicExams", JSON.stringify(dynamicExams));
   }, [dynamicExams]);
 
-  const addTrainer = () => {
-    const name = prompt("Enter trainer name:");
-    const role = prompt("Enter role:");
-    const img = prompt("Enter image URL:");
-    const trainees = parseInt(prompt("Number of trainees:"), 10);
-    if (name && role && img && !isNaN(trainees)) {
-      setDynamicTrainers([...dynamicTrainers, { name, role, img, trainees }]);
+  const handleAddTrainer = () => {
+    const { name, role, img, trainees } = formData;
+    if (name && role && img && trainees && !isNaN(trainees)) {
+      setDynamicTrainers([...dynamicTrainers, { name, role, img, trainees: parseInt(trainees) }]);
+      setFormData({ name: "", role: "", img: "", trainees: "" });
+      setShowModal(false);
+    } else {
+      alert("Please fill all fields correctly.");
     }
   };
-
-
 
   const displayedTrainers = showAllTrainers
     ? [...staticTrainers, ...dynamicTrainers]
@@ -55,7 +57,7 @@ const OverviewRow2 = () => {
   return (
     <div className="container my-4">
       <div className="row g-4 align-items-start">
-        {/* Active Trainers */}
+        {/* === Left Column: Active Trainers === */}
         <div className="col-md-6 d-flex flex-column">
           <div className="d-flex justify-content-between align-items-center mb-2 px-1">
             <h5 className="fw-bold mb-0">Active Trainers</h5>
@@ -69,7 +71,7 @@ const OverviewRow2 = () => {
           </div>
           <div className="rounded p-3 flex-grow-1 d-flex flex-column" style={{ backgroundColor: "#d8f275" }}>
             <div className="d-flex justify-content-end mb-3">
-              <button className="btn btn-dark btn-sm" onClick={addTrainer}>+ Add New</button>
+              <button className="btn btn-dark btn-sm" onClick={() => setShowModal(true)}>+ Add New</button>
             </div>
             {displayedTrainers.map((trainer, idx) => (
               <div key={idx} className="d-flex align-items-center justify-content-between mb-3">
@@ -86,18 +88,18 @@ const OverviewRow2 = () => {
           </div>
         </div>
 
-        {/* Upcoming Exams */}
-        <div className="col-md-6 d-flex flex-column mt-5 pt-2">
-          <div className="rounded p-3 flex-grow-1 d-flex flex-column" style={{ backgroundColor: "#d8f275" }}>
-            <div className="d-flex justify-content-between align-items-center mb-2 px-1">
+        {/* === Right Column: Upcoming Exams === */}
+        <div className="col-md-6 d-flex flex-column">
+          <div className="d-flex justify-content-between align-items-center mb-2 px-1">
             <h5 className="fw-bold mb-0">Upcoming Exams</h5>
-       <button
-                className="btn btn-dark btn-sm py-2 px-4"
-                onClick={() => navigate("/upload-qp")}
-              >
-                Upload New Exam
-              </button>
+            <button
+              className="btn btn-dark btn-sm py-2 px-4"
+              onClick={() => navigate("/upload-qp")}
+            >
+              Upload New Exam
+            </button>
           </div>
+          <div className="rounded p-3 flex-grow-1 d-flex flex-column" style={{ backgroundColor: "#d8f275" }}>
             {[...staticExams, ...dynamicExams].map((exam, idx) => (
               <div key={idx} className="border border-primary rounded p-2 mb-3 bg-transparent">
                 <div className="d-flex justify-content-between align-items-start">
@@ -115,6 +117,54 @@ const OverviewRow2 = () => {
           </div>
         </div>
       </div>
+
+      {/* === Modal for Add Trainer === */}
+      {showModal && (
+        <div className="modal d-block" tabIndex="-1" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
+          <div className="modal-dialog" role="document">
+            <div className="modal-content p-3">
+              <div className="modal-header">
+                <h5 className="modal-title">Add New Trainer</h5>
+                <button type="button" className="btn-close" onClick={() => setShowModal(false)}></button>
+              </div>
+              <div className="modal-body">
+                <input
+                  type="text"
+                  className="form-control mb-2"
+                  placeholder="Trainer Name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                />
+                <input
+                  type="text"
+                  className="form-control mb-2"
+                  placeholder="Role"
+                  value={formData.role}
+                  onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                />
+                <input
+                  type="text"
+                  className="form-control mb-2"
+                  placeholder="Image URL"
+                  value={formData.img}
+                  onChange={(e) => setFormData({ ...formData, img: e.target.value })}
+                />
+                <input
+                  type="number"
+                  className="form-control mb-2"
+                  placeholder="No. of Trainees"
+                  value={formData.trainees}
+                  onChange={(e) => setFormData({ ...formData, trainees: e.target.value })}
+                />
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Cancel</button>
+                <button type="button" className="btn btn-primary" onClick={handleAddTrainer}>Add Trainer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
