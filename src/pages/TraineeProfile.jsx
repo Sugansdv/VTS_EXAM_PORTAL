@@ -6,7 +6,6 @@ const TraineeProfile = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  // ✅ Get from localStorage or state fallback
   const name = localStorage.getItem('userName') || state?.name || 'N/A';
   const image = localStorage.getItem('userImage') || state?.image || '';
   const course = state?.course || 'N/A';
@@ -74,7 +73,6 @@ const TraineeProfile = () => {
   return (
     <div className="container-fluid">
       <div className="row mt-3 g-4">
-        {/* Left */}
         <div className="col-12 col-md-6">
           <div className="d-flex align-items-center border border-primary p-3 rounded mb-3 w-100">
             <img src={image} alt={name} className="rounded-circle me-3" width="50" height="50" />
@@ -95,18 +93,17 @@ const TraineeProfile = () => {
             <div className="mt-3 border border-primary p-2 rounded bg-transparent">
               <strong>Figma Technical Questions</strong><br />
               <small>Duration: 30 Minutes</small><br />
-              <small className="text-muted">May 15, 2025 – 2:30 PM</small>
+              <small className="text-muted">July 15, 2025 – 2:30 PM</small>
             </div>
 
             <div className="mt-3 border border-primary p-2 rounded bg-transparent">
               <strong>Figma Practical Questions</strong><br />
               <small>Duration: 1 Day</small><br />
-              <small className="text-muted">May 16, 2025 – 4:00 PM</small>
+              <small className="text-muted">July 16, 2025 – 4:00 PM</small>
             </div>
           </div>
         </div>
 
-        {/* Right */}
         <div className="col-12 col-md-6">
           <div className="card text-center p-4 w-100" style={{ backgroundColor: '#e6ffb3' }}>
             <img src={image} alt={name} className="rounded-circle mx-auto mb-3" width="100" height="100" />

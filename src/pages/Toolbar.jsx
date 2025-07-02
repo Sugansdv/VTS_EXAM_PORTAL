@@ -7,13 +7,105 @@ import OverviewRow3 from "../components/overview/OverviewRow3";
 import AddTraineeModal from "../components/AddTraineeModal";
 
 const Toolbar = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchedTrainee, setSearchedTrainee] = useState(null);
+  const [showResultModal, setShowResultModal] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
-  const [show, setShow] = useState(false);
-  const [classMode, setClassMode] = useState(""); 
+  const [showFilterModal, setShowFilterModal] = useState(false);
+  const [classMode, setClassMode] = useState("");
   const navigate = useNavigate();
 
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
+  const handleSearch = () => {
+    const onlineStatic = [
+      { name: "Kavya", course: "UI/UX", mode: "Online", email: "kavya.uiux@vts.in", phone: "9156800278" },
+      { name: "Dharun", course: "UI/UX", mode: "Online", email: "dharun.uiux@vts.in", phone: "9876543210" },
+      {
+            id: 3,
+            name: "Ram",
+            course: "UI/UX Design",
+            mode: "Online",
+            email: "ram.uiux@vts.in",
+            phone: "9123456780"
+          },
+          {
+            id: 4,
+            name: "Santoz",
+            course: "UI/UX Design",
+            mode: "Online",
+            email: "santoz.uiux@vts.in",
+            phone: "9988776655"
+          },
+          {
+            id: 5,
+            name: "Sugan",
+            course: "UI/UX Design",
+            mode: "Online",
+            email: "sugan.uiux@vts.in",
+            phone: "9012345678"
+          },
+          {
+            id: 6,
+            name: "Manoj",
+            course: "UI/UX Design",
+            mode: "Online",
+            email: "manoj.uiux@vts.in",
+            phone: "9345678901"
+          },
+    ];
+
+    const offlineStatic = [
+      { id: 1, name: "Ramesh", course: "UI/UX", mode: "Offline", email: "ramesh.uiux@vts.in", phone: "8657544011" },
+      { id: 2, name: "Diya", course: "UI/UX", mode: "Offline", email: "diya.uiux@vts.in", phone: "8901234567" },
+      {
+            id: 3,
+            name: "Geetha",
+            course: "UI/UX Design",
+            mode: "Offline",
+            email: "geetha.uiux@vts.in",
+            phone: "9876501234"
+          },
+          {
+            id: 4,
+            name: "Keerthi",
+            course: "UI/UX Design",
+            mode: "Offline",
+            email: "keerthi.uiux@vts.in",
+            phone: "9998887770"
+          },
+          {
+            id: 5,
+            name: "Sujitha",
+            course: "UI/UX Design",
+            mode: "Offline",
+            email: "sujitha.uiux@vts.in",
+            phone: "9123451234"
+          },
+          {
+            id: 6,
+            name: "Ramu",
+            course: "UI/UX Design",
+            mode: "Offline",
+            email: "ramu.uiux@vts.in",
+            phone: "9345609871"
+          },
+    ];
+
+    const onlineFromStorage = JSON.parse(localStorage.getItem("onlineTrainees")) || [];
+    const offlineFromStorage = JSON.parse(localStorage.getItem("offlineTrainees")) || [];
+
+    const all = [...onlineStatic, ...offlineStatic, ...onlineFromStorage, ...offlineFromStorage];
+
+    const result = all.find(t =>
+      t.name.toLowerCase() === searchTerm.trim().toLowerCase()
+    );
+
+    if (result) {
+      setSearchedTrainee(result);
+      setShowResultModal(true);
+    } else {
+      alert("No trainee found.");
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,18 +116,21 @@ const Toolbar = () => {
       navigate("/offline");
     }
 
-    handleClose();
+    setShowFilterModal(false);
   };
 
   return (
     <>
       <div className="d-flex justify-content-center mt-4">
         <div className="d-flex align-items-center gap-3">
+          {/* 🔍 Search Input */}
           <div className="input-group" style={{ maxWidth: "220px" }}>
             <input
               type="text"
               className="form-control border-end-0"
-              placeholder="Search"
+              placeholder="Search Trainee by Name"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
             <button
               className="btn"
@@ -44,6 +139,7 @@ const Toolbar = () => {
                 border: "1px solid #ced4da",
                 borderLeft: "none",
               }}
+              onClick={handleSearch}
             >
               <FaSearch />
             </button>
@@ -53,7 +149,7 @@ const Toolbar = () => {
           <button
             className="btn d-flex align-items-center gap-2 text-white"
             style={{ backgroundColor: "#161527" }}
-            onClick={handleShow}
+            onClick={() => setShowFilterModal(true)}
           >
             <FaFilter size={14} />
             <span>Filter</span>
@@ -61,14 +157,13 @@ const Toolbar = () => {
 
           {/* Add Trainees Button */}
           <button
-  className="btn d-flex align-items-center gap-2 text-white"
-  style={{ backgroundColor: "#161527" }}
-  onClick={() => setShowAddModal(true)}
->
-  <FaPlus size={14} />
-  <span>Add Trainees</span>
-</button>
-
+            className="btn d-flex align-items-center gap-2 text-white"
+            style={{ backgroundColor: "#161527" }}
+            onClick={() => setShowAddModal(true)}
+          >
+            <FaPlus size={14} />
+            <span>Add Trainees</span>
+          </button>
         </div>
       </div>
 
@@ -78,11 +173,11 @@ const Toolbar = () => {
       </div>
 
       {/* Filter Modal */}
-      <Modal show={show} onHide={handleClose} centered>
+      <Modal show={showFilterModal} onHide={() => setShowFilterModal(false)} centered>
         <Modal.Body>
           <div className="d-flex justify-content-between align-items-center mb-3">
             <h5 className="mb-0">Filter By</h5>
-            <button className="btn-close" onClick={handleClose}></button>
+            <button className="btn-close" onClick={() => setShowFilterModal(false)}></button>
           </div>
           <hr />
           <Form onSubmit={handleSubmit}>
@@ -143,7 +238,34 @@ const Toolbar = () => {
           <hr className="mt-4" />
         </Modal.Body>
       </Modal>
+
+      {/* Add Trainee Modal */}
       <AddTraineeModal show={showAddModal} handleClose={() => setShowAddModal(false)} />
+
+      {/* Search Result Modal */}
+      <Modal show={showResultModal} onHide={() => setShowResultModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Trainee Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {searchedTrainee ? (
+            <>
+              <p><strong>Name:</strong> {searchedTrainee.name}</p>
+              <p><strong>Course:</strong> {searchedTrainee.course}</p>
+              <p><strong>Mode:</strong> {searchedTrainee.mode}</p>
+              <p><strong>Email:</strong> {searchedTrainee.email}</p>
+              <p><strong>Phone:</strong> {searchedTrainee.phone}</p>
+            </>
+          ) : (
+            <p>No data found.</p>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowResultModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

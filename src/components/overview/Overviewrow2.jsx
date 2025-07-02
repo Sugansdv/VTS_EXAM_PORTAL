@@ -14,8 +14,8 @@ const OverviewRow2 = () => {
   ];
 
   const staticExams = [
-    { title: "Figma Technical Questions", duration: "30 Minutes", date: "May 15, 2025", time: "2:30 PM" },
-    { title: "Figma Practical Questions", duration: "1 Day", date: "May 16, 2025", time: "4:00 PM" },
+    { title: "Figma Technical Questions", duration: "30 Minutes", date: "July 15, 2025", time: "2:30 PM" },
+    { title: "Figma Practical Questions", duration: "1 Day", date: "July 16, 2025", time: "4:00 PM" },
   ];
 
   const [dynamicTrainers, setDynamicTrainers] = useState([]);
@@ -118,7 +118,6 @@ const OverviewRow2 = () => {
         </div>
       </div>
 
-      {/* === Modal for Add Trainer === */}
       {showModal && (
         <div className="modal d-block" tabIndex="-1" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
           <div className="modal-dialog" role="document">

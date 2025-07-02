@@ -2,13 +2,18 @@ import React from 'react';
 import { FaEnvelope, FaPhone, FaPen } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
-const TraineeCard = ({ id, name, duration, course, mode, email, phone, image }) => {
+const TraineeCard = ({ id, name, duration, course, mode, email, phone, image, onEdit }) => {
   const navigate = useNavigate();
 
   return (
     <div className="card p-3 mt-2" style={{ backgroundColor: '#e6ffb3', width: '300px', position: 'relative' }}>
-      <FaPen className="position-absolute top-0 end-0 m-2" style={{ cursor: 'pointer' }} />
-      
+      {/* 🟢 This triggers the edit modal */}
+      <FaPen
+        className="position-absolute top-0 end-0 m-2"
+        style={{ cursor: 'pointer' }}
+        onClick={onEdit}
+      />
+
       <div className="d-flex align-items-center mb-3">
         <img src={image} alt={name} className="rounded-circle me-3" width="60" height="60" />
         <h5 className="m-0">{name}</h5>
